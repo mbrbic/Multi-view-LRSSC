@@ -1,24 +1,19 @@
 % 
-% Run MLRSSC on Prokaryotic dataset. Parameters are optimal over NMI
+% Run MLRSSC on Prokaryotic dataset. Parameters are optimized over NMI
 % measure.
 %
 %-------------------------------------------------------
 clear;
 addpath(genpath(cd))
 
-num_views = 3;
+load prokaryotic
 
-X1 = load('text');
-X2 = load('amino_acid_composition');
-X3 = load('phyletic_profiles');
+X{1} = text;
+X{2} = proteome_comp;
+X{3} = gene_repert;
 
-truth = load('genome_truth');
 k = max(truth); % number of clusters
-
-X{1} = X1;
-X{2} = X2;
-X{3} = X3;
-
+num_views = 3;
 num_iter = 100;
 
 %% Linear kernel multi-view LRSSC

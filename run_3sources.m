@@ -1,18 +1,18 @@
 % 
-% Run MLRSSC on 3-sources dataset. Parameters are optimal over NMI
+% Run MLRSSC on 3-sources dataset. Parameters are optimized over NMI
 % measure.
 %
 %-------------------------------------------------------
 clear;
 addpath(genpath(cd))
 
-num_views = 3;
-k = 6;
-X{1} = spconvert(load('3sources_bbc.out'))';
-X{2} = spconvert(load('3sources_guardian.out'))';
-X{3} = spconvert(load('3sources_reuters.out'))';
-truth = load('3sources_truth');
+load 3-sources
+X{1} = bbc;
+X{2} = guardian;
+X{3} = reuters;
 
+k = 6;
+num_views = 3;
 num_iter = 100;
 
 %% Linear kernel multi-view LRSSC

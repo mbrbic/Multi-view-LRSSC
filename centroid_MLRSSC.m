@@ -82,7 +82,11 @@ Lambda3 = repmat({zeros(n,n)}, 1, num_views);
 Lambda4 = repmat({zeros(n,n)}, 1, num_views);
 C_centroid = zeros(n,n);
 
-mu = [mu mu mu mu];
+mu1 = mu;
+mu2 = mu;
+mu3 = mu;
+mu4 = mu;
+mu = [mu1 mu2 mu3 mu4];
 
 for v = 1:num_views
     options.KernelType = kernel;
@@ -104,13 +108,10 @@ while iter < num_iter && ~converged
     iter = iter + 1;
     
     for v = 1:num_views
-        
         A_prev{v} = A{v}; % save previous value
-        
         [C1{v}, C2{v}, C3{v}, Lambda1{v}, Lambda2{v}, Lambda3{v}, Lambda4{v}, A{v}] = centroid_one_view_LRSSC...
             (X{v}', K{v}, C1{v}, C2{v}, C3{v}, C_centroid, Lambda1{v}, Lambda2{v}, Lambda3{v}, Lambda4{v}, ...
             lambda, mu, noisy);
-        
     end
     
     % update centroid
@@ -121,9 +122,7 @@ while iter < num_iter && ~converged
     
     % check convergence
     converged = true;
-    
     for v=1 : num_views
-        
         err1 = max(max(abs(A{v}-C1{v})));
         err2 = max(max(abs(A{v}-C2{v})));
         err3 = max(max(abs(A{v}-C3{v})));
@@ -136,9 +135,7 @@ while iter < num_iter && ~converged
     end
     
     mu = min(rho*mu,max_mu);
-    
 end
-
 
 C = C_centroid;
 Af = abs(C)+abs(C');

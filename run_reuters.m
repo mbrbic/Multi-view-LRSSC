@@ -1,23 +1,22 @@
 % 
-% Run MLRSSC on Reuters digit dataset. Parameters are optimal over NMI
+% Run MLRSSC on Reuters digit dataset. Parameters are optimized over NMI
 % measure.
 %
 %-------------------------------------------------------
 clear;
 addpath(genpath(cd))
 
-num_views = 5;
+load reuters
+
+X{1} = spconvert(EN_EN_sample);
+X{2} = spconvert(EN_FR_sample);
+X{3} = spconvert(EN_GR_sample);
+X{4} = spconvert(EN_IT_sample);
+X{5} = spconvert(EN_SP_sample);
+
 k = 6;
-
-X{1} = spconvert(load('Index_EN-EN_sample'));
-X{2} = spconvert(load('Index_EN-FR_sample'));
-X{3} = spconvert(load('Index_EN-GR_sample'));
-X{4} = spconvert(load('Index_EN-IT_sample'));
-X{5} = spconvert(load('Index_EN-SP_sample'));
-
-truth = load('reuters_truth');
-
 num_iter = 100;
+num_views = 5;
 
 %% Linear kernel multi-view LRSSC
 
@@ -50,12 +49,12 @@ for v=1:num_views
    sigma(v) = opt_sigma(X{v});
 end
 
-opts.sigma = [50*sigma(1) 5*sigma(2) 10*sigma(3)]; % FIXME
+opts.sigma = [5*sigma(1) 50*sigma(2) 50*sigma(3) 50*sigma(4) 10*sigma(5)];
 
 fprintf('\nKernel pairwise multiview LRSSC\n');
-opts.mu = 10^3;
-lambda1 = 0.3;
-lambda3 = 0.3;
+opts.mu = 10^4;
+lambda1 = 0.5;
+lambda3 = 0.9;
 opts.lambda = [lambda1 (1-lambda1) lambda3];
 
 A = pairwise_MLRSSC(X, opts); % joint affinity matrix
@@ -64,8 +63,8 @@ best
             
 fprintf('\nKernel centroid multiview LRSSC\n');
 opts.mu = 10^4;
-lambda1 = 0.3;
-lambda3 = 0.7;
+lambda1 = 0.5;
+lambda3 = 0.3;
 opts.lambda = [lambda1 (1-lambda1) lambda3];
 
 A = centroid_MLRSSC(X, opts); % joint affinity matrix

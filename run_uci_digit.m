@@ -1,26 +1,18 @@
 % 
-% Run MLRSSC on UCI digit dataset. Parameters are optimal over NMI
+% Run MLRSSC on UCI digit dataset. Parameters are optimized over NMI
 % measure.
 %
 %-------------------------------------------------------
 clear;
 addpath(genpath(cd))
 
-num_views = 3;
+load uci-digit
+X{1} = mfeat_fac;
+X{2} = mfeat_fou;
+X{3} = mfeat_kar;
+
 k = 10;
-X1 = load('mfeat-fac');
-X2 = load('mfeat-fou');
-X3 = load('mfeat-kar');
-
-X{1} = X1;
-X{2} = X2;
-X{3} = X3;
-
-truth = [];
-for i=1:10
-    truth = [truth ; repmat(i,200,1)];
-end
-
+num_views = 3;
 num_iter = 100;
 
 %% Linear kernel multi-view LRSSC

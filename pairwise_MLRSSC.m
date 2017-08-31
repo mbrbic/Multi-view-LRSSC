@@ -63,7 +63,11 @@ if strcmpi(kernel,'Gaussian')
     noisy = true; % can't kernelize otherwise
 end
 
-mu = [mu mu mu mu];
+mu1 = mu;
+mu2 = mu;
+mu3 = mu;
+mu4 = mu;
+mu = [mu1 mu2 mu3 mu4];
 
 num_views = size(X,2);
 n = size(X{1},1);
@@ -86,7 +90,6 @@ Lambda4 = repmat({zeros(n,n)}, 1, num_views);
 for v = 1:num_views
     options.KernelType = kernel;
     
-   
     if strcmpi(kernel,'Gaussian')
         options.sigma = sigma(v);
     end
@@ -105,6 +108,7 @@ while iter < num_iter && ~converged
     iter = iter + 1;
     
     C_sum = repmat({zeros(n,n)}, 1, num_views);
+    
     for v = 1:num_views
         for v_tmp = 1:num_views
             if v_tmp ~= v
@@ -114,9 +118,7 @@ while iter < num_iter && ~converged
     end
     
     for v = 1:num_views
-        
         A_prev{v} = A{v}; % save previous value
-        
         [C1{v}, C2{v}, C3{v}, Lambda1{v}, Lambda2{v}, Lambda3{v}, Lambda4{v}, A{v}] = pairwise_one_view_LRSSC...
             (X{v}', K{v}, num_views, C1{v}, C2{v}, C3{v}, C_sum{v}, Lambda1{v}, Lambda2{v}, Lambda3{v}, Lambda4{v}, ...
             lambda, mu, noisy);
@@ -125,7 +127,6 @@ while iter < num_iter && ~converged
     % check convergence
     converged = true;
     for v=1 : num_views
-    
         err1 = max(max(abs(A{v}-C1{v})));
         err2 = max(max(abs(A{v}-C2{v})));
         err3 = max(max(abs(A{v}-C3{v})));
@@ -137,8 +138,7 @@ while iter < num_iter && ~converged
         end
     end
      
-    mu = min(rho*mu,max_mu);
-    
+    mu = min(rho*mu,max_mu); 
 end
 
 %if converged

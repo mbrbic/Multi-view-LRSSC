@@ -25,4 +25,4 @@ Computationally-Assisted Diagnoses of Disease) and by the Croatian Science Found
 
 
 ## References
-[1]: Brbić, M. et al. The landscape of microbial phenotypic traits and associated genes. Nucleic Acids Res 44, 10074–10090 (2016) [link](https://doi.org/10.1093/nar/gkw964)
+[1]: Brbić, M. et al. [The landscape of microbial phenotypic traits and associated genes](https://doi.org/10.1093/nar/gkw964). Nucleic Acids Res 44, 10074–10090 (2016)

@@ -11,7 +11,7 @@ The datasets used in the paper can be found in the 'datasets' directory. [UCI di
 
 When using the code in your research work, please cite "Multi-view Low-rank Sparse Subspace Clustering" by Maria Brbic and Ivica Kopriva.
 
-    @article{brbic2017,
+    @article{brbic2018,
     title={Multi-view Low-rank Sparse Subspace Clustering},
     author={Brbi\'c, Maria and Kopriva, Ivica},
     journal={Pattern Recognition},

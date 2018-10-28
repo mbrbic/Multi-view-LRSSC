@@ -15,7 +15,10 @@ When using the code in your research work, please cite "Multi-view Low-rank Spar
     title={Multi-view Low-rank Sparse Subspace Clustering},
     author={Brbi\'c, Maria and Kopriva, Ivica},
     journal={Pattern Recognition},
-    year={2017}
+    volume={73},
+    pages={247--258},
+    year={2018},
+    doi = {https://doi.org/10.1016/j.patcog.2017.08.024}
     }
 
 ## Acknowledgements
